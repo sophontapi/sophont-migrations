@@ -1,0 +1,34 @@
+{
+  "name": "sophont-api/sophont-migrations",
+  "type": "library",
+  "keywords": [
+    "zf3",
+    "php7"
+  ],
+  "homepage": "https://github.com/sophont-api/sophont-migrations",
+  "authors": [
+    {
+      "name": "Aram Petrosyan",
+      "email": "aram.petrosyan.88@gmail.com"
+    }
+  ],
+  "license": [
+    "MIT"
+  ],
+  "config": {
+    "vendor-dir": "vendor",
+    "process-timeout": 3000
+  },
+  "require": {
+    "php": "~7.0 || ~5.6",
+    "zendframework/zendframework": "2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sophont\\Migrations\\": "src/"
+    },
+    "classmap": [
+      "./Module.php"
+    ]
+  }
+}
