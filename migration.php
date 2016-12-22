@@ -19,14 +19,14 @@ if (file_exists("$basePath/vendor/autoload.php")) {
 }
 if (file_exists("$basePath/config/application.config.php")) {
     $appConfig = require "$basePath/config/application.config.php";
-    if (!isset($appConfig['modules']['CurrencySolutions\Migrations'])) {
-        $appConfig['modules'][] = 'CurrencySolutions\Migrations';
-        $appConfig['module_listener_options']['module_paths']['CurrencySolutions\Migrations'] = __DIR__;
+    if (!isset($appConfig['modules']['Sophont\Migrations\Migrations'])) {
+        $appConfig['modules'][] = 'Sophont\Migrations\Migrations';
+        $appConfig['module_listener_options']['module_paths']['Sophont\Migrations\Migrations'] = __DIR__;
     }
 } else {
     $appConfig = array(
         'modules' => array(
-            'CurrencySolutions\Migrations',
+            'Sophont\Migrations\Migrations',
         ),
         'module_listener_options' => array(
             'config_glob_paths'    => array(

@@ -1,6 +1,6 @@
 <?php
 
-namespace CurrencySolutions\Migrations\Migrations;
+namespace Sophont\Migrations\Migrations\Migrations;
 
 use \Doctrine\DBAL\Migrations\AbstractMigration as DoctrineAbstractMigration;
 use Doctrine\DBAL\Schema\Schema;

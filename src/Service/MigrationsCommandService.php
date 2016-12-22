@@ -6,8 +6,6 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-use ZendService\ReCaptcha\Exception;
-
 /**
  * Class MigrationsCommandService
  * @package Sophont\Migrations\Service
@@ -18,7 +16,6 @@ class MigrationsCommandService extends AbstractMigrationsService
      * Generate new migration file for the request module
      *
      * @param $moduleName
-     * @throws Exception
      * @throws \Exception
      */
     public function migrationGenerate($moduleName)
@@ -36,7 +33,7 @@ class MigrationsCommandService extends AbstractMigrationsService
         $version = !empty($matches[1]) ? $matches[1] : null;
 
         if(!$version) {
-            throw new Exception("Something went wrong");
+            throw new \Exception("Something went wrong");
         }
 
         $this->moveGeneratedFileToItsModuleDir($version, $moduleMigrationDirectory);

@@ -1,6 +1,6 @@
 <?php
 
-namespace CurrencySolutions\Migrations;
+namespace Sophont\Migrations\Migrations;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;

@@ -7,21 +7,19 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOMySql\Driver;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
-
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\Console\Helper\QuestionHelper;
-
 use Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand;
 
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use Zend\Code\Reflection\FileReflection;
-use Zend\Debug\Debug;
 
 /**
  * Class AbstractMigrationsService
@@ -67,9 +65,10 @@ abstract class AbstractMigrationsService
     /**
      * @return Connection
      */
-    public function getConnection() {
-        if(!$this->connection) {
-            $this->connection =  new Connection(
+    public function getConnection()
+    {
+        if (!$this->connection) {
+            $this->connection = new Connection(
                 $this->dbConfig,
                 new Driver()
             );
@@ -98,7 +97,7 @@ abstract class AbstractMigrationsService
      */
     public function getDbalConfiguration()
     {
-        if(null !== $this->dbalConfiguration) {
+        if (null !== $this->dbalConfiguration) {
             return $this->dbalConfiguration;
         }
 
@@ -106,18 +105,18 @@ abstract class AbstractMigrationsService
             $this->getConnection()
         );
 
-        $this->migrationsTempDirectory =  getcwd() . "/data/db/migrations";
+        $this->migrationsTempDirectory = getcwd() . "/data/db/migrations";
 
-        if(!file_exists($this->migrationsTempDirectory) || !is_dir($this->migrationsTempDirectory)) {
+        if (!file_exists($this->migrationsTempDirectory) || !is_dir($this->migrationsTempDirectory)) {
             mkdir($this->migrationsTempDirectory, 0775, true);
         }
 
         $dbalConfiguration->setMigrationsTableName('migration_versions');
-        $dbalConfiguration->setName('Currency Solutions Migrations');
+        $dbalConfiguration->setName('Sophont DB Migrations');
         $dbalConfiguration->setMigrationsNamespace(self::DEFAULT_NAMESPACE);
         $dbalConfiguration->setMigrationsDirectory($this->migrationsTempDirectory);
 
-        foreach(array_unique($this->moduleDirectories) as $directory) {
+        foreach (array_unique($this->moduleDirectories) as $directory) {
             $dbalConfiguration->registerMigrationsFromDirectory($directory);
         }
 
@@ -133,7 +132,7 @@ abstract class AbstractMigrationsService
     {
         preg_match("/mysql:dbname=(.*);host=(.*)/", $config['dsn'], $matches);
 
-        if(count($matches) !== 3) {
+        if (count($matches) !== 3) {
             throw new \Exception("Wrong db configuration is provided");
         }
 
@@ -153,14 +152,14 @@ abstract class AbstractMigrationsService
      */
     protected function getModuleMigrationDirectory($moduleName)
     {
-        foreach($this->moduleDirectories as $directory) {
+        foreach ($this->moduleDirectories as $directory) {
             $path = sprintf("%s/%s", rtrim($directory, "/"), $moduleName);
-            if(!(file_exists($path) && is_dir($path))) {
+            if (!(file_exists($path) && is_dir($path))) {
                 continue;
             }
 
             $migrationsDir = $path . "/migrations";
-            if(!file_exists($migrationsDir)) {
+            if (!file_exists($migrationsDir)) {
                 mkdir($migrationsDir, 0775, false);
             }
 
@@ -217,7 +216,8 @@ abstract class AbstractMigrationsService
      * @param $filename
      * @return string
      */
-    protected function getModuleNamespaceFromFile($filename) {
+    protected function getModuleNamespaceFromFile($filename)
+    {
         $fileReflection = new FileReflection($filename);
         return $fileReflection->getNamespace();
     }
@@ -225,7 +225,8 @@ abstract class AbstractMigrationsService
     /**
      * @param $migrationClass
      */
-    protected function triggerMigrationsAutoloader($migrationClass) {
+    protected function triggerMigrationsAutoloader($migrationClass)
+    {
         new $migrationClass;
     }
 }

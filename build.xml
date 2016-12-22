@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Currency Solutions Migrations" basedir="." default="build">
+<project name="Sophont DB Migrations" basedir="." default="build">
     <target name="validate-migrations">
         <exec command="php ./vendor/bin/migration.php validate" dir="." passthru="true" checkreturn="true" escape="false" />
     </target>

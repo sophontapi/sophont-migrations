@@ -4,7 +4,6 @@ namespace Sophont\Migrations\Validator;
 
 use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\DocBlockReflection;
-use Zend\Debug\Debug;
 use Zend\Validator\AbstractValidator;
 
 /**
@@ -31,9 +30,9 @@ class MigrationFile extends AbstractValidator
     {
         $this->migrationClass = $migrationClass;
         return $this->hasValidDescription() &&
-            $this->hasValidDownMethod() &&
-            $this->hasValidUpMethod() &&
-            $this->hasValidIssue();
+        $this->hasValidDownMethod() &&
+        $this->hasValidUpMethod() &&
+        $this->hasValidIssue();
     }
 
     /**
@@ -59,7 +58,7 @@ class MigrationFile extends AbstractValidator
         $docBlock = new DocBlockReflection($reflection->getDocComment());
         $description = $docBlock->getTag("description");
 
-        if($description === false) {
+        if ($description === false) {
             $this->description = "";
             return false;
         }
@@ -77,7 +76,7 @@ class MigrationFile extends AbstractValidator
 
         $docBlock = new DocBlockReflection($reflection->getDocComment());
 
-        if(!$docBlock->hasTag('issue')) {
+        if (!$docBlock->hasTag('issue')) {
             return true;
         }
 
@@ -109,7 +108,8 @@ class MigrationFile extends AbstractValidator
      * @param $methodName
      * @return bool
      */
-    private function hasValidMethod($methodName) {
+    private function hasValidMethod($methodName)
+    {
         $method = new ClassReflection($this->migrationClass);
         $methodBody = $method->getMethod($methodName)->getBody();
 
